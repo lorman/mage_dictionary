@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <HubCo_Dictionary>
+            <!--
+            This is the version number that our module is currently at.
+            In order for setup scripts to run, their version number must
+            be less than or equal to this value.
+
+            As we add upgrade scripts, we increment this value. The next time
+            your Magento instance is accessed, Magento will compare values in
+            the database table 'core_resource' against this value. If the
+            database is lower, it will attempt to run any setup scripts for
+            the module and then update the database table to match this value.
+            -->
+            <version>0.1.0</version>
+        </HubCo_Dictionary>
+    </modules>
+    <global>
+
+        <!--
+        add an adminhtml block definition
+        -->
+        <blocks>
+            <hubco_dictionary_adminhtml>
+               <class>HubCo_Dictionary_Block_Adminhtml</class>
+            </hubco_dictionary_adminhtml>
+            <hubco_dictionary>
+               <class>HubCo_Dictionary_Block</class>
+            </hubco_dictionary>
+        </blocks>
+
+        <!--
+        Add a helper definition for use in adminhtml.xml menu translation.
+        -->
+        <helpers>
+            <hubco_dictionary>
+                <class>HubCo_Dictionary_Helper</class>
+            </hubco_dictionary>
+        </helpers>
+
+        <models>
+
+            <!--
+            This is the model alias referred to in install-0.0.1.php.
+            -->
+            <hubco_dictionary>
+                <!--
+                This tells Magento where to find models for this module.
+                -->
+                <class>HubCo_Dictionary_Model</class>
+
+                <!--
+                This tells Magento where to find resource
+                materials for this module.
+                -->
+      			<resourceModel>hubco_dictionary_resource</resourceModel>
+
+            </hubco_dictionary>
+
+            <!--
+            This alias must match the <resourceModel/> value above.
+            -->
+            <hubco_dictionary_resource>
+                <!--
+                This tells Magento where to find resource
+                models for this module.
+                -->
+                <class>HubCo_Dictionary_Model_Resource</class>
+
+                <entities>
+
+                    <!--
+                    This is the table alias referred to in install-0.0.1.php.
+                    -->
+                    <abbreviation>
+
+                        <!--
+                            This is the name of the database table itself.
+                        -->
+                        <table>hubco_dictionary_abbreviations</table>
+
+                    </abbreviation>
+                    <!--
+                    This is the table alias referred to in install-0.0.1.php.
+                    -->
+                    <attribute>
+
+                        <!--
+                            This is the name of the database table itself.
+                        -->
+                        <table>hubco_dictionary_attributes</table>
+
+                    </attribute>
+
+                </entities>
+
+            </hubco_dictionary_resource>
+
+        </models>
+
+        <resources>
+
+            <!--
+            This must match our folder name in the module sql folder.
+            -->
+            <hubco_dictionary_setup>
+
+                <setup>
+
+                    <!--
+                    This defines which module the setup
+                    scripts in this location belong to.
+                    -->
+                    <module>HubCo_Dictionary</module>
+
+                    <!--
+                    In each setup script, this
+                    value determines the class of $this.
+                    -->
+                    <class>Mage_Core_Model_Resource_Setup</class>
+
+                </setup>
+
+                <!--
+                This is relevant only if you have multiple database connections.
+                -->
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+
+            </hubco_dictionary_setup>
+
+        </resources>
+
+    </global>
+
+    <!-- Add a router for access to our admin panel controller. -->
+    <admin>
+        <routers>
+
+            <!-- This is the alias for this router. -->
+            <hubco_dictionary_admin>
+
+                <!--
+                This basically informs Magento to use the
+                admin scope for requests to this router.
+                -->
+                <use>admin</use>
+
+                <args>
+                    <!--
+                    This tells Magento where to find
+                    adminhtml controllers for this module.
+                    -->
+                   <module>HubCo_Dictionary_Adminhtml</module>
+
+                    <!-- This is the term used in the actual URL. -->
+                    <frontName>dictionary-admin</frontName>
+                </args>
+
+            </hubco_dictionary_admin>
+
+        </routers>
+    </admin>
+</config>
