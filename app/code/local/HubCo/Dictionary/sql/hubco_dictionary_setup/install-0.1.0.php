@@ -17,7 +17,7 @@ $table = new Varien_Db_Ddl_Table();
  * - smashingmagazine_branddirectory is the model alias
  * - brand is the table reference
  */
-$table->setName($this->getTable('hubco_dictionary/abbreviations'));
+$table->setName($this->getTable('hubco_dictionary/abbreviation'));
 
 /**
  * Add the columns we need for now. If you need more in the future you can
@@ -113,7 +113,7 @@ $table = new Varien_Db_Ddl_Table();
  * - smashingmagazine_branddirectory is the model alias
  * - brand is the table reference
 */
-$table->setName($this->getTable('hubco_dictionary/attributes'));
+$table->setName($this->getTable('hubco_dictionary/attribute'));
 
 /**
  * Add the columns we need for now. If you need more in the future you can
@@ -215,6 +215,155 @@ $table->setOption('charset', 'utf8');
 */
 $this->getConnection()->createTable($table);
 
+/**
+ * Tables for Make and Model for fitments
+ */
+$table->setName($this->getTable('hubco_dictionary/make'));
 
+/**
+ * Add the columns we need for now. If you need more in the future you can
+ * always create a new setup script as an upgrade, we will introduce that
+ * later on in the tutorial.
+*/
+$table->addColumn(
+    'entity_id',
+    Varien_Db_Ddl_Table::TYPE_INTEGER,
+    10,
+    array(
+        'auto_increment' => true,
+        'unsigned' => true,
+        'nullable'=> false,
+        'primary' => true
+    )
+);
+$table->addColumn(
+    'created_at',
+    Varien_Db_Ddl_Table::TYPE_DATETIME,
+    null,
+    array(
+        'nullable' => false,
+    )
+);
+$table->addColumn(
+    'updated_at',
+    Varien_Db_Ddl_Table::TYPE_DATETIME,
+    null,
+    array(
+        'nullable' => false,
+    )
+);
+$table->addColumn(
+    'supplier_make',
+    Varien_Db_Ddl_Table::TYPE_VARCHAR,
+    255,
+    array(
+        'nullable' => false,
+    )
+);
+$table->addColumn(
+    'translated_make',
+    Varien_Db_Ddl_Table::TYPE_VARCHAR,
+    255,
+    array(
+        'nullable' => false,
+    )
+);
+$table->addColumn(
+    'suppliers',
+    Varien_Db_Ddl_Table::TYPE_TEXT,
+    null,
+    array(
+        'nullable' => false,
+    )
+);
+
+/**
+ * A couple of important lines that are often missed.
+*/
+$table->setOption('type', 'InnoDB');
+$table->setOption('charset', 'utf8');
+
+/**
+ * Create the table!
+*/
+$this->getConnection()->createTable($table);
+
+$table->setName($this->getTable('hubco_dictionary/model'));
+
+/**
+ * Add the columns we need for now. If you need more in the future you can
+ * always create a new setup script as an upgrade, we will introduce that
+ * later on in the tutorial.
+*/
+$table->addColumn(
+    'entity_id',
+    Varien_Db_Ddl_Table::TYPE_INTEGER,
+    10,
+    array(
+        'auto_increment' => true,
+        'unsigned' => true,
+        'nullable'=> false,
+        'primary' => true
+    )
+);
+$table->addColumn(
+    'created_at',
+    Varien_Db_Ddl_Table::TYPE_DATETIME,
+    null,
+    array(
+        'nullable' => false,
+    )
+);
+$table->addColumn(
+    'updated_at',
+    Varien_Db_Ddl_Table::TYPE_DATETIME,
+    null,
+    array(
+        'nullable' => false,
+    )
+);
+$table->addColumn(
+    'make',
+    Varien_Db_Ddl_Table::TYPE_VARCHAR,
+    255,
+    array(
+        'nullable' => false,
+    )
+);
+$table->addColumn(
+    'supplier_model',
+    Varien_Db_Ddl_Table::TYPE_VARCHAR,
+    255,
+    array(
+        'nullable' => false,
+    )
+);
+$table->addColumn(
+    'translated_model',
+    Varien_Db_Ddl_Table::TYPE_VARCHAR,
+    255,
+    array(
+        'nullable' => false,
+    )
+);
+$table->addColumn(
+    'suppliers',
+    Varien_Db_Ddl_Table::TYPE_TEXT,
+    null,
+    array(
+        'nullable' => false,
+    )
+);
+
+/**
+ * A couple of important lines that are often missed.
+*/
+$table->setOption('type', 'InnoDB');
+$table->setOption('charset', 'utf8');
+
+/**
+ * Create the table!
+*/
+$this->getConnection()->createTable($table);
 
 $this->endSetup();

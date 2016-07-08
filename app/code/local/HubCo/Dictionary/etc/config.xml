@@ -92,6 +92,22 @@
                         <table>hubco_dictionary_attributes</table>
 
                     </attribute>
+                    <make>
+
+                        <!--
+                            This is the name of the database table itself.
+                        -->
+                        <table>hubco_dictionary_make</table>
+
+                    </make>
+                    <model>
+
+                        <!--
+                            This is the name of the database table itself.
+                        -->
+                        <table>hubco_dictionary_model</table>
+
+                    </model>
 
                 </entities>
 

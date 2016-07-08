@@ -19,7 +19,7 @@
              <abbreviations translate="title"
                      module="hubco_dictionary">
                  <title>Abbreviations</title>
-                 <sort_order>10</sort_order>
+                 <sort_order>1</sort_order>
 
                  <!--
                  When the menu is clicked, take the user here.
@@ -30,7 +30,7 @@
              <attributes translate="title"
                      module="hubco_dictionary">
                  <title>Attributes</title>
-                 <sort_order>10</sort_order>
+                 <sort_order>2</sort_order>
 
                  <!--
                  When the menu is clicked, take the user here.
@@ -38,6 +38,27 @@
               <action>hubco_dictionary_admin/attribute</action>
 
              </attributes>
+             <make translate="title"
+                     module="hubco_dictionary">
+                 <title>Fitment Make</title>
+                 <sort_order>3</sort_order>
+
+                 <!--
+                 When the menu is clicked, take the user here.
+                 -->
+              <action>hubco_dictionary_admin/make</action>
+
+             </make>
+             <model translate="title"
+                     module="hubco_dictionary">
+                 <title>Fitment Model</title>
+                 <sort_order>4</sort_order>
+
+                 <!--
+                 When the menu is clicked, take the user here.
+                 -->
+              <action>hubco_dictionary_admin/model</action>
+             </model>
          </children>
     	</hubco_dictionary>
     	</children></suppliers>
