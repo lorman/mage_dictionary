@@ -99,4 +99,42 @@ class HubCo_Dictionary_Helper_Data
     return $attributes;
   }
 
+  public function getAvailableMakes($multi = false) {
+    $allMakes = Mage::getModel('partfinder/db')->getColumnValues("make");
+    $makes = array();
+    foreach ($allMakes as $make){
+      if ($multi)
+      {
+        $makes[$make] = array(
+            'value' => $make,
+            'label' => $make
+        );
+      }
+      else
+      {
+        $makes[$make] = $make;
+      }
+    }
+    return $makes;
+  }
+
+  public function getAvailableModels($multi = false) {
+    $allModels = Mage::getModel('partfinder/db')->getColumnValues("model");
+    $models = array();
+    foreach ($allModels as $model){
+      if ($multi)
+      {
+        $models[$model] = array(
+            'value' => $model,
+            'label' => $model
+        );
+      }
+      else
+      {
+        $models[$model] = $model;
+      }
+    }
+    return $models;
+  }
+
 }
