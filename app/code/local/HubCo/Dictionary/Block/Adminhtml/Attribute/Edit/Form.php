@@ -37,17 +37,32 @@ class HubCo_Dictionary_Block_Adminhtml_Attribute_Edit_Form
         );
 
         // Add the fields that we want to be editable.
-        $this->_addFieldsToFieldset($fieldset, array(
+        $event = $this->_addFieldsToFieldset($fieldset, array(
             'attribute_name' => array(
                 'label' => $this->__('Attribute Name From Source'),
                 'input' => 'text',
-                'required' => false,
+                'required' => true,
             ),
             'attribute_code' => array(
                 'label' => $this->__('Attribute'),
                 'input' => 'select',
-                'required' => true,
+                'required' => false,
                 'values' => $helper->getAvailableProductAttributes(),
+                'onchange'=>'UpdateTranslation(this)',
+                'after_element_html' => "<script type=\"text/javascript\">
+    function UpdateTranslation(selectElement){
+        var reloadurl = '". $this->getUrl('hubco_dictionary_admin/attribute/getValues')."attributeCode/' + selectElement.value;
+        new Ajax.Request(reloadurl, {
+            method: 'get',
+            onLoading: function (transport) {
+                $('translation').update('Searching...');
+            },
+            onComplete: function(transport) {
+                    $('translation').update(transport.responseText);
+            }
+        });
+    }
+</script>",
             ),
             'value' => array(
                 'label' => $this->__('Value'),
@@ -56,8 +71,21 @@ class HubCo_Dictionary_Block_Adminhtml_Attribute_Edit_Form
             ),
             'translation' => array(
                 'label' => $this->__('Translation'),
-                'input' => 'text',
+                'input' => 'select',
                 'required' => false,
+                'values' => $helper->getAvailableAttributeValues($this->_getAttribute()->getData('attribute_code')),
+            ),
+            'ignore' => array(
+                'label' => $this->__('Ignore'),
+                'input' => 'select',
+                'required' => false,
+                'values' => array(0=>'No', 1=>'Yes'),
+            ),
+            'description' => array(
+                'label' => $this->__('To Description'),
+                'input' => 'select',
+                'required' => false,
+                'values' => array(0=>'No', 1=>'Yes'),
             ),
             'suppliers' => array(
                 'name' => 'suppliers[]',
@@ -86,7 +114,6 @@ class HubCo_Dictionary_Block_Adminhtml_Attribute_Edit_Form
        * before saving.
              */
         ));
-
         return $this;
     }
 

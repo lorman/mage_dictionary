@@ -124,6 +124,27 @@ class HubCo_Dictionary_Adminhtml_AttributeController
         );
     }
 
+    public function getValuesAction()
+    {
+      $attributeCode = $this->getRequest()->getParam('attributeCode', false);
+      $attribute = Mage::getSingleton('eav/config')
+      ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
+      $options            = array();
+      if($attribute->usesSource()){
+          $options = $attribute->getSource()->getAllOptions(false);
+          array_unshift($options, array('label' => 'Select Value', 'value' => ''));
+      }
+
+      $select = Mage::app()->getLayout()->createBlock('core/html_select')
+              ->setName('translation')
+              ->setId('translation')
+              ->setTitle('Select Value')
+              ->setValue(null)
+              ->setExtraParams(null)
+              ->setOptions($options);
+      echo $select->getHtml();
+    }
+
     /**
      * Thanks to Ben for pointing out this method was missing. Without
      * this method the ACL rules configured in adminhtml.xml are ignored.

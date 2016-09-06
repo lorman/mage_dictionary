@@ -52,4 +52,9 @@ class HubCo_Dictionary_Model_Abbreviation
 
         return $this;
     }
+
+    public function translate($word) {
+      //TODO Find and return a translated word
+      return null;
+    }
 }

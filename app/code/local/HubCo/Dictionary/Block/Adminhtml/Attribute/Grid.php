@@ -35,6 +35,7 @@ class HubCo_Dictionary_Block_Adminhtml_Attribute_Grid
         /**
          * Here, we'll define which columns to display in the grid.
          */
+        $helper = Mage::helper('hubco_dictionary');
         $this->addColumn('entity_id', array(
             'header' => $this->_getHelper()->__('ID'),
             'type' => 'number',
@@ -49,8 +50,9 @@ class HubCo_Dictionary_Block_Adminhtml_Attribute_Grid
 
         $this->addColumn('attribute_code', array(
             'header' => $this->_getHelper()->__('Attribute'),
-            'type' => 'text',
+            'type' => 'options',
             'index' => 'attribute_code',
+            'options' => $helper->getAvailableProductAttributes(),
         ));
 
         $this->addColumn('value', array(
@@ -61,8 +63,21 @@ class HubCo_Dictionary_Block_Adminhtml_Attribute_Grid
 
         $this->addColumn('translation', array(
             'header' => $this->_getHelper()->__('Translation'),
-            'type' => 'text',
+            'type' => 'options',
             'index' => 'translation',
+            'options'=> $helper->getAllAttributeValues(),
+        ));
+
+        $this->addColumn('ignore', array(
+            'header' => $this->_getHelper()->__('Ignore'),
+            'type' => 'checkbox',
+            'index' => 'ignore',
+        ));
+
+        $this->addColumn('description', array(
+            'header' => $this->_getHelper()->__('To Description'),
+            'type' => 'checkbox',
+            'index' => 'description',
         ));
 
         $this->addColumn('created_at', array(

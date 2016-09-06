@@ -51,24 +51,23 @@ class HubCo_Dictionary_Helper_Data
   {
     $suppliers = array();
     $allSuppliersCollection = Mage::getModel('suppliers/supplier')
-    ->getCollection()
-    ->addFieldToSelect('name');
+    ->getCollection();
     $allSuppliers = $allSuppliersCollection->load()->toArray();
-    foreach ($allSuppliers['items'] as $supplierId => $supplier)
+    foreach ($allSuppliers['items'] as $supplier)
     {
       if (!isset($supplier['name'])) {
         continue;
       }
       if ($multi)
       {
-        $suppliers[$supplierId] = array(
-            'value' => $supplierId,
+        $suppliers[$supplier['supplier_id']] = array(
+            'value' => $supplier['supplier_id'],
             'label' => $supplier['name']
         );
       }
       else
       {
-        $suppliers[$supplierId] = $supplier['name'];
+        $suppliers[$supplier['supplier_id']] = $supplier['name'];
       }
     }
 
@@ -76,11 +75,17 @@ class HubCo_Dictionary_Helper_Data
   }
 
   public function getAvailableProductAttributes($multi = false) {
-
     $type = Mage::getModel('eav/entity_type')->loadByCode(Mage_Catalog_Model_Product::ENTITY);
     $allAttributes = Mage::getResourceModel('eav/entity_attribute_collection')->setEntityTypeFilter($type);
-
-    $attributes = array();
+    if ($multi)
+    {
+      $attributes[0] = array('value' => 0,
+              'label' => 'None');
+    }
+    else
+    {
+      $attributes[0] = 'None';
+    }
     foreach ($allAttributes as $attribute){
       if ($attribute->getIsVisibleOnFront()) {
         if ($multi)
@@ -97,6 +102,66 @@ class HubCo_Dictionary_Helper_Data
       }
     }
     return $attributes;
+  }
+
+  public function getAvailableAttributeValues($code, $multi = false) {
+    $attribute = Mage::getSingleton('eav/config')
+      ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $code);
+    if ($attribute->usesSource()) {
+        $options = $attribute->getSource()->getAllOptions(false);
+    }
+    if ($multi)
+    {
+      $values[0] = array('value' => 0,
+          'label' => 'None');
+    }
+    else
+    {
+      $values[0] = 'None';
+    }
+    foreach ($options as $value){
+        if ($multi)
+        {
+          $values[$value['value']] = array(
+              'value' => $value['value'],
+              'label' => $value['label']
+          );
+        }
+        else
+        {
+          $values[$value['value']] = $value['label'];
+        }
+    }
+    return $values;
+  }
+
+  public function getAllAttributeValues($multi = false) {
+    $type = Mage::getModel('eav/entity_type')->loadByCode(Mage_Catalog_Model_Product::ENTITY);
+    $allAttributes = Mage::getResourceModel('eav/entity_attribute_collection')->setEntityTypeFilter($type);
+    $values = array();
+    foreach ($allAttributes as $attribute){
+      if ($attribute->getIsVisibleOnFront()) {
+        $attribute = Mage::getSingleton('eav/config')
+        ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attribute->getAttributecode());
+        if ($attribute->usesSource()) {
+          $options = $attribute->getSource()->getAllOptions(false);
+        }
+        foreach ($options as $value){
+          if ($multi)
+          {
+            $values[$value['value']] = array(
+                'value' => $value['value'],
+                'label' => $value['label']
+            );
+          }
+          else
+          {
+            $values[$value['value']] = $value['label'];
+          }
+        }
+      }
+    }
+    return $values;
   }
 
   public function getAvailableMakes($multi = false) {

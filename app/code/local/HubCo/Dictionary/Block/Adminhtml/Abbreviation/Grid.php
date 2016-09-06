@@ -35,6 +35,10 @@ class HubCo_Dictionary_Block_Adminhtml_Abbreviation_Grid
         /**
          * Here, we'll define which columns to display in the grid.
          */
+        $brandSingleton = Mage::getSingleton(
+            'hubco_brand/brand'
+        );
+
         $this->addColumn('entity_id', array(
             'header' => $this->_getHelper()->__('ID'),
             'type' => 'number',
@@ -51,6 +55,27 @@ class HubCo_Dictionary_Block_Adminhtml_Abbreviation_Grid
             'header' => $this->_getHelper()->__('Translation'),
             'type' => 'text',
             'index' => 'translation',
+        ));
+
+        $this->addColumn('suppliers', array(
+            'header' => $this->_getHelper()->__('Suppliers'),
+            'type' => 'options',
+            'options' => $this->_getHelper()->getAvailableSuppliers(),
+            'index' => 'suppliers',
+        ));
+
+        $this->addColumn('brands', array(
+            'header' => $this->_getHelper()->__('Brands'),
+            'type' => 'options',
+            'options' =>  $brandSingleton->getAvailableBrands(),
+            'index' => 'brands',
+        ));
+
+        $this->addColumn('categories', array(
+            'header' => $this->_getHelper()->__('Categories'),
+            'type' => 'options',
+            'options' =>  $this->_getHelper()->getAvailableCategories(),
+            'index' => 'categories',
         ));
 
         $this->addColumn('created_at', array(
