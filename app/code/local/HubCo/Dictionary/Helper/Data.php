@@ -47,33 +47,6 @@ class HubCo_Dictionary_Helper_Data
     return $categories;
   }
 
-  public function getAvailableSuppliers($multi = false)
-  {
-    $suppliers = array();
-    $allSuppliersCollection = Mage::getModel('suppliers/supplier')
-    ->getCollection();
-    $allSuppliers = $allSuppliersCollection->load()->toArray();
-    foreach ($allSuppliers['items'] as $supplier)
-    {
-      if (!isset($supplier['name'])) {
-        continue;
-      }
-      if ($multi)
-      {
-        $suppliers[$supplier['supplier_id']] = array(
-            'value' => $supplier['supplier_id'],
-            'label' => $supplier['name']
-        );
-      }
-      else
-      {
-        $suppliers[$supplier['supplier_id']] = $supplier['name'];
-      }
-    }
-
-    return $suppliers;
-  }
-
   public function getAvailableProductAttributes($multi = false) {
     $type = Mage::getModel('eav/entity_type')->loadByCode(Mage_Catalog_Model_Product::ENTITY);
     $allAttributes = Mage::getResourceModel('eav/entity_attribute_collection')->setEntityTypeFilter($type);
@@ -119,18 +92,20 @@ class HubCo_Dictionary_Helper_Data
     {
       $values[0] = 'None';
     }
-    foreach ($options as $value){
-        if ($multi)
-        {
-          $values[$value['value']] = array(
-              'value' => $value['value'],
-              'label' => $value['label']
-          );
-        }
-        else
-        {
-          $values[$value['value']] = $value['label'];
-        }
+    if (!empty($options)) {
+      foreach ($options as $value){
+          if ($multi)
+          {
+            $values[$value['value']] = array(
+                'value' => $value['value'],
+                'label' => $value['label']
+            );
+          }
+          else
+          {
+            $values[$value['value']] = $value['label'];
+          }
+      }
     }
     return $values;
   }

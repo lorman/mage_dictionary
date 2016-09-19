@@ -35,6 +35,9 @@ class HubCo_Dictionary_Block_Adminhtml_Model_Edit_Form
         $brandSingleton = Mage::getSingleton(
             'hubco_brand/brand'
         );
+        $supplierSingleton = Mage::getSingleton(
+            'suppliers/supplier'
+        );
 
         // Add the fields that we want to be editable.
         $this->_addFieldsToFieldset($fieldset, array(
@@ -60,7 +63,7 @@ class HubCo_Dictionary_Block_Adminhtml_Model_Edit_Form
                 'label' => $this->__('Suppliers'),
                 'input' => 'multiselect',
                 'required' => false,
-                'values' => $helper->getAvailableSuppliers(true),
+                'values' => $supplierSingleton->toOptionList(true),
             ),
             /**
              * Note: we have not included created_at or updated_at.

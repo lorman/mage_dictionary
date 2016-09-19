@@ -38,6 +38,9 @@ class HubCo_Dictionary_Block_Adminhtml_Abbreviation_Grid
         $brandSingleton = Mage::getSingleton(
             'hubco_brand/brand'
         );
+        $supplierSingleton = Mage::getSingleton(
+            'suppliers/supplier'
+        );
 
         $this->addColumn('entity_id', array(
             'header' => $this->_getHelper()->__('ID'),
@@ -60,7 +63,7 @@ class HubCo_Dictionary_Block_Adminhtml_Abbreviation_Grid
         $this->addColumn('suppliers', array(
             'header' => $this->_getHelper()->__('Suppliers'),
             'type' => 'options',
-            'options' => $this->_getHelper()->getAvailableSuppliers(),
+            'options' => $supplierSingleton->toOptionList(),
             'index' => 'suppliers',
         ));
 
