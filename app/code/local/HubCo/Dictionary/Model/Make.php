@@ -52,4 +52,21 @@ class HubCo_Dictionary_Model_Make
 
         return $this;
     }
+
+    public function Clean($make, $supplier) {
+      $collection = Mage::getModel('hubco_dictionary/make')->getCollection();
+      $collection->addFieldToFilter('supplier_make',array('eq'=>$make));
+      $collection->addFieldToFilter(array('suppliers','suppliers'),array(array('regexp'=>'(,|^)'.$supplier.'(,|$)'), array('eq'=>'')));
+      $collection->setOrder('supplier_make', 'desc');
+      $collection->setOrder('suppliers', 'desc');
+
+      $collection->getSelect()
+      ->order('supplier_make desc')
+      ->order('suppliers desc');
+      //->__toString(); exit;
+      foreach ($collection as $item) {
+        return $item;
+      }
+      return null;
+    }
 }
