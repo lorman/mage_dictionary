@@ -80,7 +80,7 @@ class HubCo_Dictionary_Helper_Data
   public function getAvailableAttributeValues($code, $multi = false) {
     $attribute = Mage::getSingleton('eav/config')
       ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $code);
-    if ($attribute->usesSource()) {
+    if ($attribute !== false && $attribute->usesSource()) {
         $options = $attribute->getSource()->getAllOptions(false);
     }
     if ($multi)

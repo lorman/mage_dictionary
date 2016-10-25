@@ -70,14 +70,16 @@ class HubCo_Dictionary_Block_Adminhtml_Attribute_Grid
 
         $this->addColumn('ignore', array(
             'header' => $this->_getHelper()->__('Ignore'),
-            'type' => 'checkbox',
+            'type' => 'options',
             'index' => 'ignore',
+            'options'=> array(0=>'NO', 1=>'YES'),
         ));
 
         $this->addColumn('description', array(
             'header' => $this->_getHelper()->__('To Description'),
-            'type' => 'checkbox',
+            'type' => 'options',
             'index' => 'description',
+            'options'=> array(0=>'NO', 1=>'YES'),
         ));
 
         $this->addColumn('created_at', array(

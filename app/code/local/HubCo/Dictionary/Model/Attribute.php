@@ -53,17 +53,22 @@ class HubCo_Dictionary_Model_Attribute
         return $this;
     }
 
-    public function Clean($make, $supplier) {
+    public function Clean($name, $value, $brand, $supplier) {
+      echo  "<pre>$name<br>$value<br>$brand<br>$supplier<br>";
       // search for a translation based on input
       $collection = Mage::getModel('hubco_dictionary/attribute')->getCollection();
-      $collection->addFieldToFilter('supplier_make',array('eq'=>$name));
+      $collection->addFieldToFilter('attribute_name',array('eq'=>$name));
+      $collection->addFieldToFilter(array('value','value'),array(array('eq'=>$value), array('eq'=>'')));
+      $collection->addFieldToFilter(array('brands','brands'),array(array('regexp'=>'(,|^)'.$brand.'(,|$)'), array('eq'=>'')));
       $collection->addFieldToFilter(array('suppliers','suppliers'),array(array('regexp'=>'(,|^)'.$supplier.'(,|$)'), array('eq'=>'')));
-      $collection->setOrder('supplier_make', 'desc');
+      $collection->setOrder('value', 'desc');
       $collection->setOrder('suppliers', 'desc');
+      $collection->setOrder('brands', 'desc');
 
       $collection->getSelect()
-      ->order('supplier_make desc')
-      ->order('suppliers desc');
+      ->order('value desc')
+      ->order('suppliers desc')
+      ->order('brands desc');
       //->__toString(); exit;
       foreach ($collection as $item) {
         return $item;
