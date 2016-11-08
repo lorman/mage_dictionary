@@ -54,7 +54,6 @@ class HubCo_Dictionary_Model_Attribute
     }
 
     public function Clean($name, $value, $brand, $supplier) {
-      echo  "<pre>$name<br>$value<br>$brand<br>$supplier<br>";
       // search for a translation based on input
       $collection = Mage::getModel('hubco_dictionary/attribute')->getCollection();
       $collection->addFieldToFilter('attribute_name',array('eq'=>$name));
