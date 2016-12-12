@@ -96,14 +96,14 @@ class HubCo_Dictionary_Helper_Data
       foreach ($options as $value){
           if ($multi)
           {
-            $values[$value['label']] = array(
+            $values[$value['value']] = array(
                 'value' => $value['value'],
                 'label' => $value['label']
             );
           }
           else
           {
-            $values[$value['label']] = $value['label'];
+            $values[$value['value']] = $value['label'];
           }
       }
     }
@@ -124,14 +124,14 @@ class HubCo_Dictionary_Helper_Data
         foreach ($options as $value){
           if ($multi)
           {
-            $values[$value['label']] = array(
+            $values[$value['value']] = array(
                 'value' => $value['value'],
                 'label' => $value['label']
             );
           }
           else
           {
-            $values[$value['label']] = $value['label'];
+            $values[$value['value']] = $value['label'];
           }
         }
       }
