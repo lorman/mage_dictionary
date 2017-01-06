@@ -53,8 +53,22 @@ class HubCo_Dictionary_Model_Abbreviation
         return $this;
     }
 
-    public function translate($word) {
+    public function translate($word, $brand = '', $supplier = '') {
       //TODO Find and return a translated word
+      $collection = Mage::getModel('hubco_dictionary/abbreviation')->getCollection();
+      $collection->addFieldToFilter('abbreviation',array('eq'=>$word));
+      $collection->addFieldToFilter(array('brands','brands'),array(array('regexp'=>'(,|^)'.$brand.'(,|$)'), array('eq'=>'')));
+      $collection->addFieldToFilter(array('suppliers','suppliers'),array(array('regexp'=>'(,|^)'.$supplier.'(,|$)'), array('eq'=>'')));
+      $collection->setOrder('suppliers', 'desc');
+      $collection->setOrder('brands', 'desc');
+
+      $collection->getSelect()
+      ->order('suppliers desc')
+      ->order('brands desc');
+
+      foreach ($collection as $item) {
+        return $item['translation'];
+      }
       return null;
     }
 }

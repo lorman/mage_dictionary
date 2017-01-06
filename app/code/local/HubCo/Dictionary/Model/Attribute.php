@@ -60,15 +60,12 @@ class HubCo_Dictionary_Model_Attribute
       $collection->addFieldToFilter(array('value','value'),array(array('eq'=>$value), array('eq'=>'')));
       $collection->addFieldToFilter(array('brands','brands'),array(array('regexp'=>'(,|^)'.$brand.'(,|$)'), array('eq'=>'')));
       $collection->addFieldToFilter(array('suppliers','suppliers'),array(array('regexp'=>'(,|^)'.$supplier.'(,|$)'), array('eq'=>'')));
-      $collection->setOrder('value', 'desc');
-      $collection->setOrder('suppliers', 'desc');
-      $collection->setOrder('brands', 'desc');
 
       $collection->getSelect()
       ->order('value desc')
       ->order('suppliers desc')
       ->order('brands desc');
-      //->__toString(); exit;
+
       foreach ($collection as $item) {
         return $item;
       }
