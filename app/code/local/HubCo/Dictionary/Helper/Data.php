@@ -47,6 +47,19 @@ class HubCo_Dictionary_Helper_Data
     return $categories;
   }
 
+  /**
+  * Convert from value to label
+  *
+     update hubco_dictionary_attributes DA, eav_attribute A, eav_attribute_option O, eav_attribute_option_value OV
+      SET DA.translation = OV.value
+      WHERE DA.attribute_code = A.attribute_code
+      AND A.attribute_id = O.attribute_id
+      AND O.option_id = OV.option_id
+      AND DA.translation = OV.option_id
+
+  */
+
+
   public function getAvailableProductAttributes($multi = false) {
     $type = Mage::getModel('eav/entity_type')->loadByCode(Mage_Catalog_Model_Product::ENTITY);
     $allAttributes = Mage::getResourceModel('eav/entity_attribute_collection')->setEntityTypeFilter($type);
@@ -63,14 +76,14 @@ class HubCo_Dictionary_Helper_Data
       if ($attribute->getIsVisibleOnFront()) {
         if ($multi)
         {
-          $attributes[$attribute->getAttributecode()] = array(
-              'value' => $attribute->getAttributecode(),
+          $attributes[$attribute->getFrontendLabel()] = array(
+              'value' => $attribute->getFrontendLabel(),
               'label' => $attribute->getFrontendLabel()
           );
         }
         else
         {
-          $attributes[$attribute->getAttributecode()] = $attribute->getFrontendLabel();
+          $attributes[$attribute->getFrontendLabel()] = $attribute->getFrontendLabel();
         }
       }
     }
@@ -85,7 +98,7 @@ class HubCo_Dictionary_Helper_Data
     }
     if ($multi)
     {
-      $values[0] = array('value' => 0,
+      $values['None'] = array('value' => 'None',
           'label' => 'None');
     }
     else
@@ -96,14 +109,14 @@ class HubCo_Dictionary_Helper_Data
       foreach ($options as $value){
           if ($multi)
           {
-            $values[$value['value']] = array(
-                'value' => $value['value'],
+            $values[$value['label']] = array(
+                'value' => $value['label'],
                 'label' => $value['label']
             );
           }
           else
           {
-            $values[$value['value']] = $value['label'];
+            $values[$value['label']] = $value['label'];
           }
       }
     }
@@ -124,14 +137,14 @@ class HubCo_Dictionary_Helper_Data
         foreach ($options as $value){
           if ($multi)
           {
-            $values[$value['value']] = array(
-                'value' => $value['value'],
+            $values[$value['label']] = array(
+                'value' => $value['label'],
                 'label' => $value['label']
             );
           }
           else
           {
-            $values[$value['value']] = $value['label'];
+            $values[$value['label']] = $value['label'];
           }
         }
       }
