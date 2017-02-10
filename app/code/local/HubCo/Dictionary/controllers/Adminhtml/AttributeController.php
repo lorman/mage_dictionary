@@ -130,9 +130,13 @@ class HubCo_Dictionary_Adminhtml_AttributeController
       $attribute = Mage::getSingleton('eav/config')
       ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
       $options            = array();
+      $optionsFinal = array();
       if($attribute->usesSource()){
           $options = $attribute->getSource()->getAllOptions(false);
-          array_unshift($options, array('label' => 'Select Value', 'value' => ''));
+          foreach ($options as $opt) {
+            $optionsFinal[] = array('label'=>$opt['label'], 'value'=>$opt['label']);
+          }
+          array_unshift($optionsFinal, array('label' => 'Select Value', 'value' => ''));
       }
 
       $select = Mage::app()->getLayout()->createBlock('core/html_select')
@@ -141,7 +145,7 @@ class HubCo_Dictionary_Adminhtml_AttributeController
               ->setTitle('Select Value')
               ->setValue(null)
               ->setExtraParams(null)
-              ->setOptions($options);
+              ->setOptions($optionsFinal);
       echo $select->getHtml();
     }
 
