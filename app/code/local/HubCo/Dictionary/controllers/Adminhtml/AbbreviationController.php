@@ -55,7 +55,7 @@ class HubCo_Dictionary_Adminhtml_AbbreviationController
                 }
                 $abbreviation->addData($postData);
                 $abbreviation->save();
-
+                Mage::dispatchEvent('save_abbreviation_event', $abbreviation);
                 $this->_getSession()->addSuccess(
                     $this->__('The abbreviation has been saved.')
                 );
