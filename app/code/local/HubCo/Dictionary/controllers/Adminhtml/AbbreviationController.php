@@ -93,7 +93,7 @@ class HubCo_Dictionary_Adminhtml_AbbreviationController
 
     public function deleteAction()
     {
-        $abbreviation = Mage::getModel('hubco_dictionary/abbrebviation');
+        $abbreviation = Mage::getModel('hubco_dictionary/abbreviation');
 
         if ($abbreviationId = $this->getRequest()->getParam('id', false)) {
             $abbreviation->load($abbreviationId);
