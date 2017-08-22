@@ -7,7 +7,7 @@
       First, create a top-level menu item, which will appear alongside CMS
       -->
       <hubco_dictionary translate="title"
-             module="hubco_brand">
+             module="hubco_dictionary">
          <title>Dictionary</title>
          <sort_order>75</sort_order>
          <depends>
@@ -70,14 +70,26 @@
             <admin>
                 <children>
                     <hubco_dictionary translate="title"
-                            module="hubco_brand">
-                        <title>Brand Dictionary</title>
+                            module="hubco_dictionary">
+                        <title>Hubco Dictionary</title>
                         <sort_order>75</sort_order>
                         <children>
-                            <brand translate="title"
-                                    module="hubco_brand">
+                            <abbreviation translate="title"
+                                    module="hubco_dictionary">
                                 <title>Manage Abbreviations</title>
-                            </brand>
+                            </abbreviation>
+                            <attribute translate="title"
+                                    module="hubco_dictionary">
+                                <title>Manage Attribute</title>
+                            </attribute>
+                            <make translate="title"
+                                    module="hubco_dictionary">
+                                <title>Manage Make</title>
+                            </make>
+                            <model translate="title"
+                                    module="hubco_dictionary">
+                                <title>Manage Model</title>
+                            </model>
                         </children>
                     </hubco_dictionary>
                 </children>
